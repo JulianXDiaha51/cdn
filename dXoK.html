@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>JulzzCDN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:   #0f0e0c;
+  --paper: #f5f2eb;
+  --dim:   #b8b3a8;
+  --line:  #d4cfc6;
+  --pop:   #c8441a;
+}
+
+html, body {
+  min-height: 100vh;
+  background: #e8e4dc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  font-family: 'Geist Mono', monospace;
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  position: relative;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+.topbar {
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .55rem 1.25rem;
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.topbar-right { opacity: .5; font-size: .6rem; }
+
+.body { padding: 1.75rem 1.5rem 1.5rem; position: relative; }
+
+.big-num {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 5.5rem;
+  font-weight: 400;
+  color: var(--pop);
+  line-height: .9;
+  letter-spacing: -.04em;
+  margin-bottom: .5rem;
+  display: inline-block;
+  transform: rotate(-1.5deg);
+}
+
+.tagline-wrap { margin-bottom: 1.4rem; }
+
+.tagline {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 1.55rem;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.25;
+  letter-spacing: -.01em;
+}
+.tagline strong {
+  font-style: normal;
+  font-weight: 400;
+  text-decoration: underline;
+  text-decoration-color: var(--pop);
+  text-underline-offset: 3px;
+}
+
+.rule { border: none; border-top: 1.5px solid var(--ink); margin: 1.25rem 0; }
+.rule-dashed { border-top-style: dashed; border-color: var(--line); }
+
+.feat-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1.4rem; }
+.feat-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  font-size: .78rem;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.feat-num {
+  font-size: .6rem;
+  font-weight: 600;
+  background: var(--ink);
+  color: var(--paper);
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.url-box {
+  border: 1.5px solid var(--ink);
+  padding: .8rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  cursor: pointer;
+  background: var(--paper);
+  transition: background .15s, transform .15s, box-shadow .15s;
+  margin-bottom: 1rem;
+  position: relative;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.url-box:hover { background: #ede9e0; }
+.url-box:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
+
+.url-text { font-size: .85rem; font-weight: 600; color: var(--ink); letter-spacing: .02em; }
+.url-hint { font-size: .58rem; color: var(--dim); margin-top: .1rem; }
+.copy-btn { flex-shrink: 0; color: var(--dim); transition: color .15s; }
+.url-box:hover .copy-btn { color: var(--ink); }
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  width: 100%;
+  padding: .85rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: 'Geist Mono', monospace;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1.5px solid var(--ink);
+  cursor: pointer;
+  position: relative;
+  transition: transform .15s, box-shadow .15s;
+  box-shadow: 3px 3px 0 var(--pop);
+}
+.cta:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--pop); }
+.cta:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--pop); }
+
+.stamp {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 52px;
+  height: 52px;
+  border: 2px solid var(--pop);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(12deg);
+  opacity: .7;
+}
+.stamp-text {
+  font-size: .42rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--pop);
+  text-align: center;
+  line-height: 1.4;
+}
+
+.footer {
+  border-top: 1.5px solid var(--line);
+  padding: .75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-left { font-size: .6rem; color: var(--dim); line-height: 1.6; }
+.footer-right {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: .95rem;
+  font-style: italic;
+  color: var(--dim);
+}
+
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  padding: .6rem 1.2rem;
+  border: 1.5px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--pop);
+  transition: transform .3s cubic-bezier(0.22,1,0.36,1);
+  white-space: nowrap;
+  z-index: 99;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 360px) {
+  .big-num { font-size: 4rem; }
+  .body { padding: 1.25rem 1.1rem 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="topbar">
+    <span>JulzzCDN — Tools Gratis</span>
+    <span class="topbar-right">julzzcdn.web.id</span>
+  </div>
+
+  <div class="body">
+    <div class="stamp">
+      <span class="stamp-text">100%<br/>FREE</span>
+    </div>
+
+    <div class="tagline-wrap">
+      <div class="big-num">2</div>
+      <h1 class="tagline">
+        tools dalam<br/>
+        <strong>satu website.</strong>
+      </h1>
+    </div>
+
+    <hr class="rule"/>
+
+    <ul class="feat-list">
+      <li>
+        <span class="feat-num">01</span>
+        <div><strong>CDN Upload</strong> — upload file gambar, video, zip, atau format apapun dan dapatkan link langsung</div>
+      </li>
+      <li>
+        <span class="feat-num">02</span>
+        <div><strong>Short URL</strong> — persingkat link panjang jadi pendek, bisa pakai kode custom sendiri</div>
+      </li>
+    </ul>
+
+    <hr class="rule rule-dashed"/>
+
+    <div class="url-box" onclick="copyUrl()">
+      <div>
+        <div class="url-text">julzzcdn.web.id</div>
+        <div class="url-hint">tap untuk copy</div>
+      </div>
+      <svg class="copy-btn" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="9" y="9" width="13" height="13" rx="1"/>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+      </svg>
+    </div>
+
+    <a href="https://julzzcdn.web.id" target="_blank" class="cta">
+      Buka sekarang →
+    </a>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">
+      by JulzzGnnz<br/>
+      Tidak perlu daftar
+    </div>
+    <div class="footer-right">gratis.</div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Link disalin ✓</div>
+
+<script>
+function copyUrl() {
+  var url = 'https://julzzcdn.web.id';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).catch(function(){ fallback(url); });
+  } else { fallback(url); }
+  var t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 2000);
+}
+function fallback(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  document.execCommand('copy'); document.body.removeChild(ta);
+}
+</script>
+</body>
+</html>
